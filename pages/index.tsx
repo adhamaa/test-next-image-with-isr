@@ -1,8 +1,49 @@
-import type { NextPage } from 'next'
+import * as React from 'react'
+import type { NextPage, InferGetStaticPropsType } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import { getPlaiceholder } from 'plaiceholder'
+import { extractImgSrc } from '@plaiceholder/tailwindcss/utils'
+import backgroundImage1 from '../public/windows11.jpeg'
+import backgroundImage2 from '../public/sakura.jpeg'
 
-const Home: NextPage = () => {
+const getImagesFromPlaiceholders = (...classNames) =>
+  Promise.all(
+    classNames.map(async (className) => {
+      const { img } = await getPlaiceholder(extractImgSrc(className))
+
+      return { className, ...img }
+    })
+  )
+
+export const getStaticProps = async () => {
+  // const plaiceholder = 'plaiceholder-[/windows11.jpeg]'
+  // const plaiceholder = 'plaiceholder-[/sakura.jpeg]'
+  // const { img } = await getPlaiceholder(extractImgSrc(plaiceholder))
+
+  const images = await getImagesFromPlaiceholders(
+    'plaiceholder-[/assets/unsplash/alexander-ant-oR7HxvOe2YE.jpg]',
+    'plaiceholder-[/assets/unsplash/alexander-ant-r7xdS9hjYYE.jpg]',
+    'plaiceholder-[/assets/unsplash/solen-feyissa-0KXl7T2YU0I.jpg]',
+    'plaiceholder-[/assets/unsplash/solen-feyissa-ju3ZBdiXzmA.jpg]',
+    'plaiceholder-[/assets/unsplash/solen-feyissa-tek55norwaQ.jpg]',
+    'plaiceholder-[/assets/unsplash/solen-feyissa-WX1siNmy_R4.jpg]'
+  )
+
+  return {
+    props: {
+      images,
+      // img,
+      // plaiceholder,
+    },
+  }
+}
+
+const Home: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
+  images,
+  // img,
+  // plaiceholder,
+}) => {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center py-2">
       <Head>
@@ -25,46 +66,22 @@ const Home: NextPage = () => {
           </code>
         </p>
 
-        <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full">
-          <a
-            href="https://nextjs.org/docs"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Documentation &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Find in-depth information about Next.js features and API.
-            </p>
-          </a>
+        <div className="next-image relative my-8 overflow-hidden">
+          <div
+            className={`absolute inset-0 h-full w-full ${plaiceholder} scale-150 transform blur-2xl filter`}
+          />
+          <Image {...img} />
+        </div>
 
-          <a
-            href="https://nextjs.org/learn"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Learn &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Learn about Next.js in an interactive course with quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Examples &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Discover and deploy boilerplate example Next.js projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Deploy &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+        <div className="relative w-full overflow-hidden">
+          {/* <div className="plaiceholder-[/windows11.jpeg] -z-10 block h-96 w-full scale-150 transform blur-2xl" /> */}
+          {/* <div className="plaiceholder-[/sakura.jpeg] -z-10 block h-96 w-96 scale-150 transform blur-2xl" /> */}
+          {/* <Image src={backgroundImage1} /> */}
+          {/* <Image src={backgroundImage2} /> */}
+          {/* <div
+            className={`absolute inset-0 h-full w-full ${plaiceholder} scale-150 transform blur-2xl filter`}
+          />
+          <Image {...img} /> */}
         </div>
       </main>
 
