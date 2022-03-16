@@ -1,20 +1,9 @@
-import * as React from 'react'
-import type { NextPage, InferGetStaticPropsType } from 'next'
+import type { InferGetStaticPropsType } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import { getPlaiceholder } from 'plaiceholder'
-import { extractImgSrc } from '@plaiceholder/tailwindcss/utils'
-import backgroundImage1 from '../public/windows11.jpeg'
-import backgroundImage2 from '../public/sakura.jpeg'
 
-const getImagesFromPlaiceholders = (...classNames) =>
-  Promise.all(
-    classNames.map(async (className) => {
-      const { img } = await getPlaiceholder(extractImgSrc(className))
-
-      return { className, ...img }
-    })
-  )
+import { ImageGrid, ImageGridItem } from '../components/image-grid'
+import { getImagesFromPlaiceholders } from '../utils'
 
 export const getStaticProps = async () => {
   // const plaiceholder = 'plaiceholder-[/windows11.jpeg]'
@@ -22,12 +11,8 @@ export const getStaticProps = async () => {
   // const { img } = await getPlaiceholder(extractImgSrc(plaiceholder))
 
   const images = await getImagesFromPlaiceholders(
-    'plaiceholder-[/assets/unsplash/alexander-ant-oR7HxvOe2YE.jpg]',
-    'plaiceholder-[/assets/unsplash/alexander-ant-r7xdS9hjYYE.jpg]',
-    'plaiceholder-[/assets/unsplash/solen-feyissa-0KXl7T2YU0I.jpg]',
-    'plaiceholder-[/assets/unsplash/solen-feyissa-ju3ZBdiXzmA.jpg]',
-    'plaiceholder-[/assets/unsplash/solen-feyissa-tek55norwaQ.jpg]',
-    'plaiceholder-[/assets/unsplash/solen-feyissa-WX1siNmy_R4.jpg]'
+    'plaiceholder-[/windows11.jpeg]',
+    'plaiceholder-[/sakura.jpeg]'
   )
 
   return {
@@ -55,34 +40,43 @@ const Home: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
         <h1 className="text-6xl font-bold">
           Welcome to{' '}
           <a className="text-blue-600" href="https://nextjs.org">
-            Next.js!
+            Next.js! + Plaiceholder
           </a>
         </h1>
 
         <p className="mt-3 text-2xl">
-          Get started by editing{' '}
-          <code className="rounded-md bg-gray-100 p-3 font-mono text-lg">
-            pages/index.tsx
-          </code>
+          render blur images before the original image is loaded
         </p>
 
-        <div className="next-image relative my-8 overflow-hidden">
+        {/* <div className="next-image relative my-8 overflow-hidden">
           <div
             className={`absolute inset-0 h-full w-full ${plaiceholder} scale-150 transform blur-2xl filter`}
           />
           <Image {...img} />
-        </div>
+        </div> */}
 
-        <div className="relative w-full overflow-hidden">
-          {/* <div className="plaiceholder-[/windows11.jpeg] -z-10 block h-96 w-full scale-150 transform blur-2xl" /> */}
-          {/* <div className="plaiceholder-[/sakura.jpeg] -z-10 block h-96 w-96 scale-150 transform blur-2xl" /> */}
-          {/* <Image src={backgroundImage1} /> */}
-          {/* <Image src={backgroundImage2} /> */}
-          {/* <div
-            className={`absolute inset-0 h-full w-full ${plaiceholder} scale-150 transform blur-2xl filter`}
-          />
-          <Image {...img} /> */}
-        </div>
+        {/* {images.map(({ className, ...image }) => (
+          <div
+            key={className}
+            className="next-image relative my-8 overflow-hidden"
+          >
+            <div
+              className={`absolute inset-0 h-full w-full ${className} scale-150 transform blur-2xl filter`}
+            />
+            <Image {...image} />
+          </div>
+        ))} */}
+
+        <ImageGrid>
+          {images.map(({ className, ...image }) => (
+            <ImageGridItem key={className}>
+              <div
+                className={`absolute inset-0 h-full w-full ${className} scale-150 transform blur-2xl filter`}
+              />
+              <Image {...image} />
+            </ImageGridItem>
+          ))}
+        </ImageGrid>
       </main>
 
       <footer className="flex h-24 w-full items-center justify-center border-t">
