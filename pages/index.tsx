@@ -6,10 +6,10 @@ import { ImageGrid, ImageGridItem } from '../components/image-grid'
 import { getImagesFromPlaiceholders } from '../utils'
 
 export const getStaticProps = async () => {
-  // const plaiceholder = 'plaiceholder-[/windows11.jpeg]'
-  // const plaiceholder = 'plaiceholder-[/sakura.jpeg]'
-  // const { img } = await getPlaiceholder(extractImgSrc(plaiceholder))
+  // for single image
+  // const { img } = await getPlaiceholder(extractImgSrc('plaiceholder-[/sakura.jpeg]'))
 
+  // for multiple images
   const images = await getImagesFromPlaiceholders(
     'plaiceholder-[/windows11.jpeg]',
     'plaiceholder-[/sakura.jpeg]'
