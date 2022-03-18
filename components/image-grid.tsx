@@ -12,7 +12,7 @@ export const ImageGrid: React.FC<IImageGridProps> = ({
     className={`
       ${[2, 3].includes(columns) && 'sm:grid-cols-2'}
       ${[3].includes(columns) && 'md:grid-cols-3'} 
-      mt-8 grid grid-cols-1 gap-4 `}
+      mt-8 grid grid-cols-1 gap-4`}
     {...props}
   />
 )
