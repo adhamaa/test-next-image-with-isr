@@ -1,0 +1,36 @@
+POST https://ftrh3xk4.api.sanity.io/v1/graphql/production/default 
+Content-Type: application/json 
+X-REQUEST-TYPE: GraphQL
+
+   query($_id:ID!) {
+   Article( id:$_id ){
+    _id
+    title
+    categories
+    title
+    status
+    _createdAt
+      image{
+        asset{
+          url
+        }
+      }
+    contentRaw
+    seo {
+      titleTag
+      metaDescriptionTag
+      metaKeywordsTag
+      openGraphTitle
+      openGraphDescription
+      openGraphImage {
+        asset{
+          url
+        }
+      }
+    }
+  }
+}
+
+{
+    "_id": "5bf40884-2561-404b-8430-0d35db8e59fc"
+}
