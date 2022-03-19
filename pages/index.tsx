@@ -33,7 +33,7 @@ export const getStaticProps = async () => {
       // css,
       // plaiceholder,
     },
-    revalidate: 1,
+    // revalidate: 1,
   }
 }
 
