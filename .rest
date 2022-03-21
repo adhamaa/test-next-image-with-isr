@@ -34,3 +34,6 @@ X-REQUEST-TYPE: GraphQL
 {
     "_id": "5bf40884-2561-404b-8430-0d35db8e59fc"
 }
+
+###
+POST https://test-next-image-with-isr.pages.dev/hello-world HTTP/1.1

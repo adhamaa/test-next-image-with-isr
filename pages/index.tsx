@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { useRef, useState } from 'react'
 
-import { ImageGrid, ImageGridItem } from '../components/image-grid'
+import { ImageGrid, ImageGridItem } from '../components/ImageGrid'
 import {
   getImageFromPlaiceholder,
   getImagesFromPlaiceholders,
