@@ -29,7 +29,7 @@ const mutation = `mutation($input: CreateUserInput!) {
 }`
 
 export default function Form() {
-  const [state, setState] = React.useState(null)
+  const [state, setState] = React.useState<IFormInputs>()
   const {
     register,
     reset,
