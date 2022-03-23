@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "name": "Yellow Bird",
+    "image": "/1.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Water Droplet",
+    "image": "/2.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Mountain Village",
+    "image": "/3.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Colorful Balloon",
+    "image": "/4.jpg"
+  }
+]

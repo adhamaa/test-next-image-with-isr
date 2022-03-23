@@ -6,7 +6,6 @@ const regex = /^https?:\/\/[^\/]+\//
 export const trimUrl = (url: string) => url.replace(regex, '')
 
 export const getImageFromPlaiceholder = async (image: string) => {
-  console.log('image:', image)
   const newPlaiceholder = trimUrl(image)
   const plaiceholder = image.includes('plaiceholder-[')
     ? extractImgSrc(image)
@@ -19,7 +18,11 @@ export const getImageFromPlaiceholder = async (image: string) => {
 export const getImagesFromPlaiceholders = (...classNames: string[]) =>
   Promise.all(
     classNames.map(async (className) => {
-      const { img } = await getPlaiceholder(extractImgSrc(className))
+      const newPlaiceholder = trimUrl(className)
+      const plaiceholder = className.includes('plaiceholder-[')
+        ? extractImgSrc(className)
+        : newPlaiceholder
+      const { img } = await getPlaiceholder(plaiceholder)
 
       return { className, ...img }
     })

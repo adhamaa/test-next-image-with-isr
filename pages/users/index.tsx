@@ -1,4 +1,3 @@
-import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { Key } from 'react'
 import useSWR from 'swr'
@@ -29,21 +28,26 @@ query($id: ID!) {
   `
 
 export default function Users() {
-  const router = useRouter()
-  const { id } = router.query
-  const variables = { id }
+  const {
+    push,
+    query: { id },
+  } = useRouter()
   const stringifyBody = id
-    ? JSON.stringify({ query: queryOne, variables })
+    ? JSON.stringify({ query: queryOne, variables: { id } })
     : JSON.stringify({ query: queryAll })
 
   const fetcher = async () => {
-    const response = await fetch('https://graphqlzero.almansi.me/api', {
+    const req = await fetch('https://graphqlzero.almansi.me/api', {
       body: stringifyBody,
       headers: { 'Content-type': 'application/json' },
       method: 'POST',
     })
-    const { data } = await response.json()
-    return data
+    const res = await req.json()
+    return ({
+      data: {
+        users: { data },
+      },
+    } = res)
   }
 
   const { data, error } = useSWR(() => (id ? [queryOne] : [queryAll]), fetcher)
@@ -52,12 +56,12 @@ export default function Users() {
     renderAll: (() => {
       if (error) return <div>failed to load</div>
       if (!data) return <Spinner />
-      return data?.users?.data.map(
+      return data.map(
         (user: { id: Key; name: string; username: string; email: string }) => (
           <div
             key={user.id}
             className="cursor-pointer rounded-lg border border-gray-300 bg-gray-200 p-6 text-zinc-700 shadow-lg transition-transform duration-200 ease-in-out hover:scale-105"
-            onClick={() => router.push(`/users?id=${user.id}`)}
+            onClick={() => push(`/users?id=${user.id}`)}
           >
             <h1 className="text-2xl font-light">{user?.name}</h1>
             <p className="text-4xl font-semibold ">{user?.username}</p>
