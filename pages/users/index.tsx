@@ -42,12 +42,8 @@ export default function Users() {
       headers: { 'Content-type': 'application/json' },
       method: 'POST',
     })
-    const res = await req.json()
-    return ({
-      data: {
-        users: { data },
-      },
-    } = res)
+    const res: any = await req.json()
+    return res.data.users.data
   }
 
   const { data, error } = useSWR(() => (id ? [queryOne] : [queryAll]), fetcher)
