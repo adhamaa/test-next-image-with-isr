@@ -2,21 +2,21 @@
   {
     "id": 1,
     "name": "Yellow Bird",
-    "image": "/1.jpg"
+    "image": "plaiceholder-[/1.jpg]"
   },
   {
     "id": 2,
     "name": "Water Droplet",
-    "image": "/2.jpg"
+    "image": "plaiceholder-[/2.jpg]"
   },
   {
     "id": 3,
     "name": "Mountain Village",
-    "image": "/3.jpg"
+    "image": "plaiceholder-[/3.jpg]"
   },
   {
     "id": 4,
     "name": "Colorful Balloon",
-    "image": "/4.jpg"
+    "image": "plaiceholder-[/4.jpg]"
   }
 ]

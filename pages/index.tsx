@@ -102,14 +102,46 @@ const Home: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
           render blur images before the original image is loaded
         </p>
 
-        {/* <div className="next-image relative my-8 overflow-hidden">
+        <ImageGrid columns={2}>
+          {images.map(({ className, ...image }) => (
+            <ImageGridItem key={className}>
+              <div
+                className={`absolute inset-0 h-full w-full ${className} fade-out scale-150 transform blur-2xl filter`}
+              />
+              <Image {...image} className="fade-in" />
+            </ImageGridItem>
+          ))}
+        </ImageGrid>
+      </main>
+
+      <footer className="flex h-24 w-full items-center justify-center border-t">
+        <a
+          className="flex items-center justify-center gap-2"
+          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Powered by{' '}
+          <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
+        </a>
+      </footer>
+    </div>
+  )
+}
+
+export default Home
+
+{
+  /* <div className="next-image relative my-8 overflow-hidden">
           <div
             className={`absolute inset-0 h-full w-full ${plaiceholder} scale-150 transform blur-2xl filter`}
           />
           <Image {...img} />
-        </div> */}
+        </div> */
+}
 
-        {/* <ImageGrid columns={2}>
+{
+  /* <ImageGrid columns={2}>
           <ImageGridItem key={plaiceholder}>
             <div
               className={`absolute inset-0 h-full w-full ${plaiceholder} fade-out scale-150 transform opacity-0 blur-2xl filter`}
@@ -135,9 +167,11 @@ const Home: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
               onLoad={(e) => console.log('loadImg 2', e)}
             />
           </ImageGridItem>
-        </ImageGrid> */}
+        </ImageGrid> */
+}
 
-        {/* {images.map(({ className, ...image }) => (
+{
+  /* {images.map(({ className, ...image }) => (
           <div
             key={className}
             className="next-image relative my-8 overflow-hidden"
@@ -147,37 +181,5 @@ const Home: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
             />
             <Image {...image} />
           </div>
-        ))} */}
-
-        <ImageGrid columns={2}>
-          {images.map(({ className, ...image }) => (
-            <ImageGridItem key={className}>
-              <div
-                className={`absolute inset-0 h-full w-full ${className} fade-out scale-150 transform blur-2xl filter`}
-              />
-              <Image {...image} className="fade-in" />
-              {/* <img
-                {...image}
-                className="fade-in opacity-100"
-              /> */}
-            </ImageGridItem>
-          ))}
-        </ImageGrid>
-      </main>
-
-      <footer className="flex h-24 w-full items-center justify-center border-t">
-        <a
-          className="flex items-center justify-center gap-2"
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-        </a>
-      </footer>
-    </div>
-  )
+        ))} */
 }
-
-export default Home
